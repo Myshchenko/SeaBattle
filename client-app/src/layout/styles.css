@@ -1,0 +1,62 @@
+body{
+    background-color: #eaeaea !important;
+}
+
+.ui.inverted.top.fixed.menu{
+    background-color: #87CEEB;
+    font-size: large;
+}
+
+.homepage {
+    display: flex;
+    align-items: center;
+    background-color: #87CEEB !important;
+    height: 100vh;
+  }
+
+  .square {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -5px;
+    padding: 0;
+    text-align: center; 
+    width: 34px;
+    cursor: pointer;
+  }
+
+ .enemySquare {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -5px;
+    padding: 0;
+    text-align: center; 
+    width: 34px;
+    color: red;
+  } 
+
+  .field-row:after {
+    clear: both; 
+    content: "";
+    display: table;
+  }
+
+  .squareCheck {
+    background: #fff;
+    border: 1.5px solid #999;
+    float: left;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+  }
