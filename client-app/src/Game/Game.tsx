@@ -75,7 +75,7 @@ export default observer(function Game() {
                         <Button
                             color='grey'
                             content='Старт'
-                            disabled={fieldOptionsStore.ALL_POINTS === 20 ? false : true}
+                            //disabled={fieldOptionsStore.ALL_POINTS === 20 ? false : true} потом вернуть
                             onClick={() => {
                                 signalRStore.startingGame(userStore.currentUser);
                                 fieldOptionsStore.HideEditingWindows();

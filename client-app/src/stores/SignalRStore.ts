@@ -54,7 +54,7 @@ export default class SignalRStore {
             connection.on("PointFired", (point: point) => {
                 runInAction(() => {
                     this.firedPoints.push(point);
-                    if (point.result === "Ранил!") {
+                    if (point.result === "Ранил!") {  
                         this.SUCCESSFULPOINTS = this.SUCCESSFULPOINTS + 1;
                     }
                     this.ALLPOINTS = this.ALLPOINTS + 1;

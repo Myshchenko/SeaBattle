@@ -7,7 +7,7 @@ import { point } from "./Models/point";
 
 export default observer(function CreateField() {
 
-    const { fieldOptionsStore, userStore, fieldStore} = useStore();
+    const { fieldOptionsStore, userStore, fieldStore } = useStore();
 
     const [arr, setArr] = useState<string[][]>([
         ["", "", "", "", "", "", "", "", "", ""],
@@ -45,6 +45,12 @@ export default observer(function CreateField() {
         })
     }
 
+    function ClearShip(row: number, column: number) {
+        fieldOptionsStore.setIsSquareHasX(false);
+        let copy = [...arr];
+        copy[row][column] = "";
+    }
+
     const coordinates = new point();
 
     return (
@@ -78,11 +84,22 @@ export default observer(function CreateField() {
                     </div>
                 ))}
 
+
+
                 {fieldOptionsStore.isErrorLabelShowed && (
                     <>
                         <h6> </h6>
                         <Label basic color='red'>
-                            Неправильное количество кораблей.
+                            Неправильное количество палуб.
+                        </Label>
+                    </>
+                )}
+
+                {fieldStore.isErrorLabelShowed && (
+                    <>
+                        <h6> </h6>
+                        <Label basic color='red'>
+                            Корабль поставлен неправильно.
                         </Label>
                     </>
                 )}
@@ -105,7 +122,8 @@ export default observer(function CreateField() {
                                     fieldOptionsStore.CURRENT_FILLED_POINTS = 0;
                                     fieldOptionsStore.CHOOSED_POINTS = 0;
                                 }
-                            }}
+                            }
+                            }
                         />
                     </>
                 )}
@@ -121,6 +139,8 @@ export default observer(function CreateField() {
                                 ))
                                 fieldOptionsStore.ClearAll();
                                 fieldStore.handleClearField(userStore.currentUser!.login);
+                                fieldOptionsStore.setIsErrorLabelShowed(false);
+                                fieldStore.shipAdded = true;
                             }}
                         />
                     </>

@@ -54,7 +54,9 @@ const Field = {
 
 const Invitings = {
     sendInviting: (inviting: inviting) => request.post<inviting>('/inviting/sendInviting', inviting),
+
     getIntitings: (userLogin: string) => request.get<inviting[]>(`/inviting/${userLogin}`),
+    
     deleteInvitation: (invitingNumber: number) => request.delete<void>(`/inviting/${invitingNumber}`),
 }
 

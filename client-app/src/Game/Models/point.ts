@@ -1,6 +1,6 @@
 export class point {
-    x: number | null = null;
-    y: number | null = null;
+    x: number = 0;
+    y: number = 0;
     creator: string | null = null;
     attackUser: string | null = null;
     result: string | null = null;

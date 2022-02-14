@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
+using API.CheckingLogic;
 
 namespace API.Controllers
 {
@@ -23,16 +24,22 @@ namespace API.Controllers
             _userManager = userManager;
         }
 
+
         [HttpPost("setCoordinates")]
         public async Task<ActionResult<Point>> SetCoordinates(PointDTO[] pointDto)
         {
-
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Login == pointDto[0].Creator);
 
             var field = await _context.Fields.FirstOrDefaultAsync(x => x.AppUserId == user.Id);
 
+            //if (!CheckShip.ShipIsCorrect(pointDto))
+            //{
+            //    return BadRequest("CHECK SHIPS");
+            //}
+
             for (int i = 0; i < pointDto.Length; i++)
             {
+
                 var point = new Point
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -64,7 +71,7 @@ namespace API.Controllers
 
             var checkIfFieldExist = await _context.Fields.FirstOrDefaultAsync(x => x.AppUserId == user.Id);
 
-            if(checkIfFieldExist != null)
+            if (checkIfFieldExist != null)
             {
                 _context.Fields.Remove(checkIfFieldExist); // возможно тут ошибка
                 _context.SaveChanges();
@@ -90,8 +97,6 @@ namespace API.Controllers
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Login == userLogin);
 
-            //var field = _context.Fields.FirstOrDefault(x => x.AppUserId == user.Id);
-
             _context.Fields.Remove(_context.Fields.FirstOrDefault(x => x.AppUserId == user.Id));
 
             _context.RemoveRange(_context.Points.Where(x => x.Creator == userLogin));
@@ -107,10 +112,6 @@ namespace API.Controllers
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Login == userLogin);
 
             var fieldCreatedByUser = _context.Fields.FirstOrDefault(x => x.AppUserId == user.Id);
-
-            string textDTO = "user " + user.Id + " fieldCreatedByUser" + fieldCreatedByUser.Id + Environment.NewLine;
-
-            System.IO.File.AppendAllText(@"C:\Users\Myshchenko\Desktop\GetProfileGames.txt", textDTO);
 
             var filledPoints = _context.Locations.Where(x => x.FieldId == fieldCreatedByUser.Id).ToList();
 

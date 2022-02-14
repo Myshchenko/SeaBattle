@@ -13,6 +13,7 @@ interface Store {
     profileStore: ProfileStore;
     signalRStore: SignalRStore;
     gameStore: GameStore;
+   
 }
 
 export const store: Store = {

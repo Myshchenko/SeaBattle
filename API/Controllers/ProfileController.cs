@@ -53,15 +53,16 @@ namespace API.Controllers
 
             foreach (var item in userGames)
             {
-                var opponentGame = _context.GamePlayers.Where(x => x.GameId == item.GameId).Skip(1).First();
+                var opponentGame = _context.GamePlayers.FirstOrDefault(x => x.GameId == item.GameId && x.AppUserId != currentUser.Id);
+
+                if(opponentGame == null)
+                {
+                    continue;
+                }
 
                 var opponent = await userManager.Users.FirstOrDefaultAsync(x => x.Id == opponentGame.AppUserId);
 
                 var game = await _context.Games.FirstOrDefaultAsync(x => x.Id == item.GameId);
-
-                string textDTO = "opponent.Login" + opponentGame.AppUserId + " / " + "CurrentCustomerMoves" + item.Moves + "OpponentMoves" + opponentGame.Moves + " / " + "GameDate" + game.GameDate + Environment.NewLine;
-
-                System.IO.File.AppendAllText(@"C:\Users\Myshchenko\Desktop\GetProfileGames.txt", textDTO);
 
                 Games.Add(new ProfileGames
                 {
